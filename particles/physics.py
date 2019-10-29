@@ -9,6 +9,12 @@ Defines update functions for particles
 K = 9.81
 
 
+def zero_update_function(particle, thrust, step_length):
+    state = list(particle.state_list[-1])
+    state[0] += step_length
+    return tuple(state)
+
+
 def gravitaional_pull_from_list(particle_list):
     def update_function(particle, thrust, step_length):
         net_f = np.zeros((2, 1))
