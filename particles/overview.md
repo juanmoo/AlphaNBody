@@ -26,7 +26,7 @@
   * List of (time, particle-state [])
     * State List[0] are the initial conditions
 
-### Metohds:
-Simulate | Args: (Particle State[], (Thrust Action, Particle)[]): 
-    * Appends new entry (time, Particle State[]) to State List.
-
+### Methods:
+##### Update Rule Dict: {Particle:(action_state, thrust) => action_state}
+Simulate | Args: (Particle State[], update_rule_dict)
+* Appends new entry (time, Particle State[]) to State List.
