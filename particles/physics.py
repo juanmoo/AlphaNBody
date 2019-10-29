@@ -24,7 +24,6 @@ def gravitaional_pull_from_list(particle_list):
         # Add Thrust Logic Here #
 
         #########################
-
         net_a = net_f/particle.mass
         dv = net_a * step_length
         avg_v = velocity + .5 * dv
