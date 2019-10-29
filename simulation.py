@@ -39,4 +39,6 @@ for _ in range(10 * 15):
 paths = list(zip(*position_list))
 for path in paths:
     plt.scatter(*zip(*path))
+
+plt.grid(True)
 plt.show()
