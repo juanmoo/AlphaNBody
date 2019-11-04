@@ -12,7 +12,8 @@ class Particle(object):
                  initial_time=0,
                  initial_position=None,
                  initial_velocity=None,
-                 initial_fuel=default_fuel):
+                 initial_fuel=default_fuel,
+                 exhaust_velocity = None):
 
         self.id = id  # Particle's UID
         self.mass = mass  # Particle's mass in kilograms
@@ -22,6 +23,9 @@ class Particle(object):
 
         if initial_velocity is None:
             initial_velocity = np.zeros((2, 1))
+            
+        if exhaust_velocity is None:
+            exhaust_velocity = 0
 
         '''
         List of instantaneous particle states. Each particle state is a tuple
@@ -33,13 +37,13 @@ class Particle(object):
         fuel_weight -> scalar - kilograms
        '''
         self.state_list = [
-            (initial_time, initial_position, initial_velocity, initial_fuel)
+            (initial_time, initial_position, initial_velocity, initial_fuel, exhaust_velocity)
         ]
 
     def current_position(self):
         return self.state_list[-1][1]
 
-    def step(self, update_function, thrust, step_length):
+    def step(self, update_function, thrust, step_length, initial_fuel, exhaust_velocity):
         new_state = update_function(self, thrust, step_length)
         self.state_list.append(new_state)
         return new_state
