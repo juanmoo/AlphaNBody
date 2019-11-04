@@ -34,11 +34,11 @@ def gravitaional_pull_from_list(particle_list):
         #########################
         net_a = net_f/particle.mass
         dv = net_a * step_length
-        avg_v = velocity + .5 * dv
+        avg_v = velocity + .5 * dv + dv_thrust
 
         next_time = time + step_length
         next_position = position + avg_v * step_length
-        next_velocity = velocity + dv
+        next_velocity = velocity + dv + dv_thrust
         next_fuel = fuel - thrust
 
         return (next_time, next_position, next_velocity, next_fuel)
