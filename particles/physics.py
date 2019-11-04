@@ -19,7 +19,7 @@ def gravitaional_pull_from_list(particle_list):
     def update_function(particle, thrust, step_length):
         net_f = np.zeros((2, 1))
         time, position, velocity, fuel = particle.state_list[-1]
-        m0 = (particle.initial_fuel+ particle.mass)
+        m0 = (fuel + particle.mass)
         for p in particle_list:
             if p.id != particle.id:
                 distance_p = position - p.current_position()
@@ -28,7 +28,8 @@ def gravitaional_pull_from_list(particle_list):
                 net_f += force_p
 
         # Add Thrust Logic Here #
-        
+        if thrust > fuel:
+            thrust = fuel
         dv_thrust = particle.exhaust_velocity np.log(m0/(m0 - thrust))
         #########################
         net_a = net_f/particle.mass
