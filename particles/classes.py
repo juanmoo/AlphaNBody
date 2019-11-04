@@ -37,13 +37,13 @@ class Particle(object):
         fuel_weight -> scalar - kilograms
        '''
         self.state_list = [
-            (initial_time, initial_position, initial_velocity, initial_fuel, exhaust_velocity)
+            (initial_time, initial_position, initial_velocity, initial_fuel)
         ]
 
     def current_position(self):
         return self.state_list[-1][1]
 
-    def step(self, update_function, thrust, step_length, initial_fuel, exhaust_velocity):
+    def step(self, update_function, thrust, step_length, initial_fuel):
         new_state = update_function(self, thrust, step_length)
         self.state_list.append(new_state)
         return new_state
