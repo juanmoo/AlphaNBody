@@ -28,18 +28,21 @@ def gravitaional_pull_from_list(particle_list):
                 net_f += force_p
 
         # Add Thrust Logic Here #
-        if thrust > fuel:
-            thrust = fuel
-        dv_thrust = particle.exhaust_velocity np.log(m0/(m0 - thrust))
+        mag_thrust, dir_thrust = thrust
+        
+        if mag_thrust > fuel:
+            mag_thrust = fuel
+        dv_thrust = particle.exhaust_velocity*np.log(m0/(m0 - mag_thrust))
+        
+        dv_thrust = np.array([dv_thrust* np.cos(dir_thrust), dv_thrust* np.sin(dir_thrust)]).reshape((2,1))
         #########################
-        net_a = net_f/particle.mass
+        net_a = net_f/m0
         dv = net_a * step_length
         avg_v = velocity + .5 * dv + dv_thrust
-
         next_time = time + step_length
         next_position = position + avg_v * step_length
         next_velocity = velocity + dv + dv_thrust
-        next_fuel = fuel - thrust
+        next_fuel = fuel - mag_thrust
 
         return (next_time, next_position, next_velocity, next_fuel)
     return update_function
